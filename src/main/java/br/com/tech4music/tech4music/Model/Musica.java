@@ -1,5 +1,9 @@
 package br.com.tech4music.tech4music.Model;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -7,11 +11,30 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Musica {
     @Id
     private String id;
+
+    @NotBlank(message = "Nome da Musica não pode estar com caracteres em branco!")
+    @NotEmpty(message = "Nome da Musica não pode ficar em branco!")
     private String titulo;
+
+    @NotBlank(message = "Nome do Artista não pode estar com caracteres em branco!")
+    @NotEmpty(message = "Nome do Artista não pode ficar em branco!")
     private String artista;
+
+    @NotBlank(message = "Nome do Album não pode estar com caracteres em branco!")
+    @NotEmpty(message = "Nome do Album não pode ficar em branco!")
     private String album;
+
+    @NotBlank(message = "O genero da música não pode estar com caracteres em branco!")
+    @NotEmpty(message = "O genero da música não pode ficar em branco!")
     private String genero;
+
+    @Size(max = 4, message = "Quantidade máxima de caracteres para o ano de lançamento é 04!")
+    @NotBlank(message = "O ano de lançamento da música não pode estar com caracteres em branco!")
+    @NotEmpty(message = "O ano de lançamento da música não pode ficar em branco!")
     private String anoLancamento;
+
+    @NotBlank(message = "Nome do Compositor não pode estar com caracteres em branco!")
+    @NotEmpty(message = "Nome do Compositor não pode ficar em branco!")
     private String compositor;
 
     @Override

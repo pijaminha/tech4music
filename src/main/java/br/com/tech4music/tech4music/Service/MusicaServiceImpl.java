@@ -2,6 +2,7 @@ package br.com.tech4music.tech4music.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +17,10 @@ public class MusicaServiceImpl implements MusicaService{
         private MusicaRepository repositorio;
 
     @Override
-    public List<Musica> obterMusicas() {
-        return repositorio.findAll();
+    public List<MusicaDTO> obterMusicas() {
+        List<Musica> mus = repositorio.findAll();
+            return mus.stream().map(m -> new ModelMapper().map(m, MusicaDTO.class))
+            .collect(Collectors.toList());
     }
 
     @Override
@@ -27,13 +30,13 @@ public class MusicaServiceImpl implements MusicaService{
         if (mus.isPresent()) {
             return Optional.of(new ModelMapper().map(mus.get(), MusicaDTO.class));
         }else
-        return Optional.empty();
+            return Optional.empty();
     }
 
     @Override
     public MusicaDTO adicionaMusica(Musica musica) {
         repositorio.save(musica);
-        return new ModelMapper().map(musica, MusicaDTO.class);
+            return new ModelMapper().map(musica, MusicaDTO.class);
     }
 
     @Override
@@ -42,9 +45,10 @@ public class MusicaServiceImpl implements MusicaService{
     }
 
     @Override
-    public Musica atualizarMusica(String id, Musica newMusica) {
-        newMusica.setId(id);
-        return repositorio.save(newMusica);
+    public MusicaDTO atualizarMusica(String id, Musica newMusica) {
+            newMusica.setId(id);
+            repositorio.save(newMusica);
+            return new ModelMapper().map(newMusica, MusicaDTO.class);
     }
     
 }

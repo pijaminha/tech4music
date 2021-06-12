@@ -8,9 +8,9 @@ import br.com.tech4music.tech4music.Model.Musica;
 
 public interface MusicaService {
     
-    List<Musica> obterMusicas();
+    List<MusicaDTO> obterMusicas();
     Optional<MusicaDTO> obterPorId(String id);
     MusicaDTO adicionaMusica(Musica musica);
     void removerMusica(String id);
-    Musica atualizarMusica(String id, Musica newMusica);
+    MusicaDTO atualizarMusica(String id, Musica newMusica);
 }

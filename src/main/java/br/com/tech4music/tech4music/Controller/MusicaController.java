@@ -3,6 +3,8 @@ package br.com.tech4music.tech4music.Controller;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,7 +29,7 @@ public class MusicaController {
     private MusicaService servico;
 
     @GetMapping
-        public ResponseEntity<List<Musica>> obterMusicas(){
+        public ResponseEntity<List<MusicaDTO>> obterMusicas(){
             return new ResponseEntity<>(servico.obterMusicas(), HttpStatus.OK);
         }
         
@@ -42,7 +44,7 @@ public class MusicaController {
         }
 
     @PostMapping
-        public ResponseEntity<MusicaDTO> adicionaMusica(@RequestBody Musica musica) {
+        public ResponseEntity<MusicaDTO> adicionaMusica(@RequestBody @Valid Musica musica) {
             return new ResponseEntity<>(servico.adicionaMusica(musica), HttpStatus.CREATED);
         }
 
@@ -58,7 +60,7 @@ public class MusicaController {
         }
 
     @PutMapping(value = "/{id}")
-        public ResponseEntity<Musica> atualizarMusica(@PathVariable String id, @RequestBody Musica newMusica){
+        public ResponseEntity<MusicaDTO> atualizarMusica(@PathVariable String id, @RequestBody Musica newMusica){
             return new ResponseEntity<>(servico.atualizarMusica(id, newMusica), HttpStatus.OK);
         }
 
